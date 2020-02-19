@@ -7,7 +7,7 @@ import (
 )
 
 //Маршрутизация вызова
-func RoutingCall(callID, toNumber, sipHeaders string) *mango_objects.Result {
+func RoutingCall(callID, toNumber, sipHeaders, apiKey, apiSing, apiUrl string) *mango_objects.Result {
 	uuidCall := uuid.New().String()
 
 	call := mango_objects.Call{
@@ -17,6 +17,6 @@ func RoutingCall(callID, toNumber, sipHeaders string) *mango_objects.Result {
 		SipHeaders: sipHeaders,
 	}
 
-	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/route")
+	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/route", apiKey, apiSing, apiUrl)
 	return mango_request.ParseResult(jsonResp)
 }

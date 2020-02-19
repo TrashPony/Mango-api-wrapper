@@ -12,9 +12,9 @@ type Balance struct {
 	Result     float64 `json:"result"`
 }
 
-func GetBalance() *Balance {
+func GetBalance(apiKey, apiSing, apiUrl string) *Balance {
 
-	jsonResp := mango_request.RequestToMango("{}", "account/balance")
+	jsonResp := mango_request.RequestToMango("{}", "account/balance", apiKey, apiSing, apiUrl)
 
 	b := Balance{}
 	err := json.Unmarshal([]byte(jsonResp), &b)

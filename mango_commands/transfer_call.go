@@ -7,7 +7,7 @@ import (
 )
 
 // Перевод вызова
-func TransferCall(callID, method, toNumber, initiator string) *mango_objects.Result {
+func TransferCall(callID, method, toNumber, initiator, apiKey, apiSing, apiUrl string) *mango_objects.Result {
 	uuidCall := uuid.New().String()
 
 	call := mango_objects.Call{
@@ -18,6 +18,6 @@ func TransferCall(callID, method, toNumber, initiator string) *mango_objects.Res
 		Initiator: initiator,
 	}
 
-	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/transfer")
+	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/transfer", apiKey, apiSing, apiUrl)
 	return mango_request.ParseResult(jsonResp)
 }

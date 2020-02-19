@@ -7,7 +7,7 @@ import (
 )
 
 //Завершение вызова
-func EndCall(callID string) *mango_objects.Result {
+func EndCall(callID, apiKey, apiSing, apiUrl string) *mango_objects.Result {
 	uuidCall := uuid.New().String()
 
 	call := mango_objects.Call{
@@ -15,6 +15,6 @@ func EndCall(callID string) *mango_objects.Result {
 		CallID:    callID,
 	}
 
-	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/call/hangup")
+	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/call/hangup", apiKey, apiSing, apiUrl)
 	return mango_request.ParseResult(jsonResp)
 }

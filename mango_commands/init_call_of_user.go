@@ -7,7 +7,7 @@ import (
 )
 
 //Инициирование вызова от имени сотрудника
-func InitCallOfUser(extension, callerNumber, toNumber, lineNumber, sipHeaders string) *mango_objects.Result {
+func InitCallOfUser(extension, callerNumber, toNumber, lineNumber, sipHeaders, apiKey, apiSing, apiUrl string) *mango_objects.Result {
 	uuidCall := uuid.New().String()
 
 	call := mango_objects.Call{
@@ -21,7 +21,7 @@ func InitCallOfUser(extension, callerNumber, toNumber, lineNumber, sipHeaders st
 		SipHeaders: sipHeaders,
 	}
 
-	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/callback")
+	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/callback", apiKey, apiSing, apiUrl)
 
 	return mango_request.ParseResult(jsonResp)
 }

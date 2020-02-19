@@ -2,38 +2,47 @@ package mango
 
 import (
 	"github.com/TrashPony/Mango-api-wrapper/mango_events"
-	"github.com/TrashPony/Mango-api-wrapper/mango_request"
 	"net/http"
+	"sync"
 )
 
-func InitMangoCallHandle(port, apiKey, sing, url string) {
+var ClientMango *Client
+var once sync.Once
 
-	mango_request.SetApiKey(apiKey)
-	mango_request.SetApiSing(sing)
-	mango_request.SetApiUrl(url)
+func InitMangoCallHandle(port, apiKey, sing, url string) *Client {
 
-	// Уведомление о вызове
-	http.HandleFunc("/events/call", mango_events.EventCall)
+	once.Do(func() {
 
-	// Уведомление о нажатиях DTMF клавиш
-	http.HandleFunc("/events/dtmf", mango_events.PressDTMF)
+		ClientMango = &Client{}
+		ClientMango.SetApiKey(apiKey)
+		ClientMango.SetApiSing(sing)
+		ClientMango.SetApiUrl(url)
 
-	// Уведомление о завершении вызова
-	http.HandleFunc("/events/summary", mango_events.EndCall)
+		// Уведомление о вызове
+		http.HandleFunc("/events/call", mango_events.EventCall)
 
-	// Уведомление о записи разговора
-	http.HandleFunc("/events/recording", mango_events.RecordStart)
+		// Уведомление о нажатиях DTMF клавиш
+		http.HandleFunc("/events/dtmf", mango_events.PressDTMF)
 
-	// Уведомление о помещении записи разговора в облачное хранилище
-	http.HandleFunc("/events/record/added", mango_events.RecordAdd)
+		// Уведомление о завершении вызова
+		http.HandleFunc("/events/summary", mango_events.EndCall)
 
-	// Уведомление о результате отправки SMS
-	http.HandleFunc("/events/sms", mango_events.ResultSMS)
+		// Уведомление о записи разговора
+		http.HandleFunc("/events/recording", mango_events.RecordStart)
 
-	go func() {
-		err := http.ListenAndServe(":"+port, nil)
-		if err != nil {
-			println(err.Error())
-		}
-	}()
+		// Уведомление о помещении записи разговора в облачное хранилище
+		http.HandleFunc("/events/record/added", mango_events.RecordAdd)
+
+		// Уведомление о результате отправки SMS
+		http.HandleFunc("/events/sms", mango_events.ResultSMS)
+
+		go func() {
+			err := http.ListenAndServe(":"+port, nil)
+			if err != nil {
+				println(err.Error())
+			}
+		}()
+	})
+
+	return ClientMango
 }

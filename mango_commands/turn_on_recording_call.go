@@ -7,7 +7,7 @@ import (
 )
 
 // Включение записи разговора
-func TurnOnRecordingCall(callID, callPartyNumber string) *mango_objects.Result {
+func TurnOnRecordingCall(callID, callPartyNumber, apiKey, apiSing, apiUrl string) *mango_objects.Result {
 	uuidCall := uuid.New().String()
 
 	call := mango_objects.Call{
@@ -16,6 +16,6 @@ func TurnOnRecordingCall(callID, callPartyNumber string) *mango_objects.Result {
 		CallPartyNumber: callPartyNumber,
 	}
 
-	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/recording/start")
+	jsonResp := mango_request.RequestToMango(call.ToJSON(), "commands/recording/start", apiKey, apiSing, apiUrl)
 	return mango_request.ParseResult(jsonResp)
 }

@@ -9,23 +9,7 @@ import (
 	"net/http"
 )
 
-var apiKey string
-var apiSing string
-var apiUrl string
-
-func SetApiKey(key string) {
-	apiKey = key
-}
-
-func SetApiSing(sing string) {
-	apiSing = sing
-}
-
-func SetApiUrl(url string) {
-	apiUrl = url
-}
-
-func RequestToMango(jsonMessage, url string) string {
+func RequestToMango(jsonMessage, url, apiKey, apiSing, apiUrl string) string {
 
 	var sign = fmt.Sprintf("%x", sha256.Sum256([]byte(apiKey+jsonMessage+apiSing)))
 

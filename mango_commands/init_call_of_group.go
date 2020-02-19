@@ -9,7 +9,7 @@ import (
 )
 
 // Инициирование вызова от имени группы
-func InitCallOfGroup(from, to, lineNumber string) *mango_objects.Result {
+func InitCallOfGroup(from, to, lineNumber, apiKey, apiSing, apiUrl string) *mango_objects.Result {
 	uuidCall := uuid.New().String()
 
 	// TODO из за того что тут требуются данные которые не матчатся с обычным звонком пришлось вот так делоть
@@ -32,7 +32,7 @@ func InitCallOfGroup(from, to, lineNumber string) *mango_objects.Result {
 		fmt.Println(err)
 	}
 
-	jsonResp := mango_request.RequestToMango(string(callJson), "commands/callback_group")
+	jsonResp := mango_request.RequestToMango(string(callJson), "commands/callback_group", apiKey, apiSing, apiUrl)
 
 	return mango_request.ParseResult(jsonResp)
 }

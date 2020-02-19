@@ -7,7 +7,7 @@ import (
 )
 
 //Отправка SMS
-func SendSms(fromExtension, toNumber, smsSender, text string) *mango_objects.Result {
+func SendSms(fromExtension, toNumber, smsSender, text, apiKey, apiSing, apiUrl string) *mango_objects.Result {
 	uuidCall := uuid.New().String()
 
 	sms := mango_objects.SMS{
@@ -18,6 +18,6 @@ func SendSms(fromExtension, toNumber, smsSender, text string) *mango_objects.Res
 		SmsSender:     smsSender,
 	}
 
-	jsonResp := mango_request.RequestToMango(sms.ToJSON(), "commands/sms")
+	jsonResp := mango_request.RequestToMango(sms.ToJSON(), "commands/sms", apiKey, apiSing, apiUrl)
 	return mango_request.ParseResult(jsonResp)
 }
