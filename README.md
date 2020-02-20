@@ -35,22 +35,22 @@ func GetClient() *mango.Client {
 
 ```
 // Уведомление о вызове
-func (c *Client) GetCallEvents() 
+func (c *Client) GetCallEvents() chan *mango_objects.Call
 
 // Уведомление о нажатиях DTMF клавиш
-func (c *Client) GetDTMFEvents() 
+func (c *Client) GetDTMFEvents() chan *mango_objects.DTMF 
 
 // Уведомление о завершении вызова
-func (c *Client) GetEndCallsEvents() 
+func (c *Client) GetEndCallsEvents() chan *mango_objects.Call
 
 // Уведомление о записи разговора
-func (c *Client) GetAddRecordEvents() 
+func (c *Client) GetAddRecordEvents() chan *mango_objects.Record
 
 // Уведомление о помещении записи разговора в облачное хранилище
-func (c *Client) GetStartRecordEvents() 
+func (c *Client) GetStartRecordEvents() chan *mango_objects.Record
 
 // Уведомление о результате отправки SMS
-func (c *Client) GetSMSEvents() 
+func (c *Client) GetSMSEvents() chan *mango_objects.SMS
 ```
 
 ##### Команды которые можно получить клиентом "API Команды"
