@@ -29,6 +29,14 @@ func (c *Client) GetBalance() *mango_client.Balance {
 	return mango_client.GetBalance(c.apiKey, c.apiSing, c.apiUrl)
 }
 
+func (c *Client) GetUserByExtension(extension string) *mango_objects.User {
+	return mango_client.GetUserByExtension(extension, c.apiKey, c.apiSing, c.apiUrl)
+}
+
+func (c *Client) GetUsers() *mango_objects.Users {
+	return mango_client.GetUsers(c.apiKey, c.apiSing, c.apiUrl)
+}
+
 func (c *Client) EndCall(callID string) *mango_objects.Result {
 	return mango_commands.EndCall(callID, c.apiKey, c.apiSing, c.apiUrl)
 }
