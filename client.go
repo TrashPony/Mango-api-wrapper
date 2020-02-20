@@ -3,6 +3,7 @@ package mango
 import (
 	"github.com/TrashPony/Mango-api-wrapper/mango_client"
 	"github.com/TrashPony/Mango-api-wrapper/mango_commands"
+	"github.com/TrashPony/Mango-api-wrapper/mango_events"
 	"github.com/TrashPony/Mango-api-wrapper/mango_objects"
 )
 
@@ -54,4 +55,28 @@ func (c *Client) TransferCall(callID, method, toNumber, initiator string) *mango
 
 func (c *Client) TurnOnRecordingCall(callID, callPartyNumber string) *mango_objects.Result {
 	return mango_commands.TurnOnRecordingCall(callID, callPartyNumber, c.apiKey, c.apiSing, c.apiUrl)
+}
+
+func (c *Client) GetCallEvents() chan *mango_objects.Call {
+	return mango_events.Events.Calls
+}
+
+func (c *Client) GetDTMFEvents() chan *mango_objects.DTMF {
+	return mango_events.Events.DTMF
+}
+
+func (c *Client) GetEndCallsEvents() chan *mango_objects.Call {
+	return mango_events.Events.EndCalls
+}
+
+func (c *Client) GetAddRecordEvents() chan *mango_objects.Record {
+	return mango_events.Events.AddRecord
+}
+
+func (c *Client) GetStartRecordEvents() chan *mango_objects.Record {
+	return mango_events.Events.StartRecord
+}
+
+func (c *Client) GetSMSEvents() chan *mango_objects.SMS {
+	return mango_events.Events.SMS
 }
