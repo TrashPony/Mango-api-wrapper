@@ -65,26 +65,26 @@ func (c *Client) TurnOnRecordingCall(callID, callPartyNumber string) *mango_obje
 	return mango_commands.TurnOnRecordingCall(callID, callPartyNumber, c.apiKey, c.apiSing, c.apiUrl)
 }
 
-func (c *Client) GetCallEvents() chan *mango_objects.Call {
-	return mango_events.Events.Calls
+func (c *Client) GetCallEvents() <-chan *mango_objects.Call {
+	return mango_events.Events.GetAddCallChan()
 }
 
-func (c *Client) GetDTMFEvents() chan *mango_objects.DTMF {
-	return mango_events.Events.DTMF
+func (c *Client) GetDTMFEvents() <-chan *mango_objects.DTMF {
+	return mango_events.Events.GetDTMF()
 }
 
-func (c *Client) GetEndCallsEvents() chan *mango_objects.Call {
-	return mango_events.Events.EndCalls
+func (c *Client) GetEndCallsEvents() <-chan *mango_objects.Call {
+	return mango_events.Events.GetEndCalls()
 }
 
-func (c *Client) GetAddRecordEvents() chan *mango_objects.Record {
-	return mango_events.Events.AddRecord
+func (c *Client) GetAddRecordEvents() <-chan *mango_objects.Record {
+	return mango_events.Events.GetAddedRecords()
 }
 
-func (c *Client) GetStartRecordEvents() chan *mango_objects.Record {
-	return mango_events.Events.StartRecord
+func (c *Client) GetStartRecordEvents() <-chan *mango_objects.Record {
+	return mango_events.Events.GetStartedRecord()
 }
 
-func (c *Client) GetSMSEvents() chan *mango_objects.SMS {
-	return mango_events.Events.SMS
+func (c *Client) GetSMSEvents() <-chan *mango_objects.SMS {
+	return mango_events.Events.GetSMS()
 }

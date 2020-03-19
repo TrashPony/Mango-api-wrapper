@@ -18,5 +18,6 @@ func PressDTMF(w http.ResponseWriter, r *http.Request) {
 	}
 
 	dtmf.Time = time.Unix(dtmf.Timestamp, 0)
-	Events.DTMF <- &dtmf
+
+	Events.AddDTMF(&dtmf)
 }

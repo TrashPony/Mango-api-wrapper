@@ -22,5 +22,5 @@ func EndCall(w http.ResponseWriter, r *http.Request) {
 	summaryCall.TalkTime = time.Unix(summaryCall.TalkTimeStamp, 0)
 	summaryCall.EndTime = time.Unix(summaryCall.EndTimeStamp, 0)
 
-	Events.EndCalls <- &summaryCall
+	Events.AddEndCall(&summaryCall)
 }

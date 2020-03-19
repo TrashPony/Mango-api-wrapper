@@ -18,5 +18,5 @@ func RecordAdd(w http.ResponseWriter, r *http.Request) {
 	}
 
 	record.Time = time.Unix(record.Timestamp, 0)
-	Events.AddRecord <- &record
+	Events.AddRecord(&record)
 }

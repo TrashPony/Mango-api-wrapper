@@ -19,5 +19,5 @@ func EventCall(w http.ResponseWriter, r *http.Request) {
 
 	eventCall.Time = time.Unix(eventCall.Timestamp, 0)
 
-	Events.Calls <- &eventCall
+	Events.AddCall(&eventCall)
 }

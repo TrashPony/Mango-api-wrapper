@@ -18,5 +18,5 @@ func ResultSMS(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sms.Time = time.Unix(sms.Timestamp, 0)
-	Events.SMS <- &sms
+	Events.AddSMS(&sms)
 }
